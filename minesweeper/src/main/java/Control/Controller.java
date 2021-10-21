@@ -20,12 +20,19 @@ public class Controller {
     private Label console;
     @FXML
     private Button exit;
+    @FXML
+    private Label bombNumber;
+    @FXML
+    private Button changeDifficulty;
+    @FXML
+    private TextField numberInput;
 
     public void start(Stage stage)
     {
         this.stage = stage;
         config();
         nickName.setText("Lilla");
+        bombNumber.setText("10");
         this.stage.show();
     }
 
@@ -37,10 +44,13 @@ public class Controller {
                 console.setText("Irj be valamit!");
             }else {
                 nickName.setText(nickInput.getText());
-                console.setText("A neved: " + nickInput.getText());
             }
         });
         exit.setOnMouseClicked((action) -> stage.close());
+
+        changeDifficulty.setOnMouseClicked((action) -> bombNumber.setText(numberInput.getText()));
+
+
     }
 
 }

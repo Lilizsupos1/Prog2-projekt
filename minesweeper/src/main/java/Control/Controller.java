@@ -1,10 +1,16 @@
 package Control;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
+import java.awt.*;
 
 public class Controller {
 
@@ -26,9 +32,14 @@ public class Controller {
     private Button changeDifficulty;
     @FXML
     private TextField numberInput;
+    @FXML
+    private Button start;
+    @FXML
+    private Button stop;
+    @FXML
+    private Pane gamePane;
 
-    public void start(Stage stage)
-    {
+    public void start(Stage stage) {
         this.stage = stage;
         config();
         nickName.setText("Lilla");
@@ -36,13 +47,12 @@ public class Controller {
         this.stage.show();
     }
 
-    private void config()
-    {
+    private void config() {
         changeNickname.setOnMouseClicked((action) ->
         {
-            if(nickInput.getText().equals("")){
+            if (nickInput.getText().equals("")) {
                 console.setText("Irj be valamit!");
-            }else {
+            } else {
                 nickName.setText(nickInput.getText());
             }
         });
@@ -51,6 +61,25 @@ public class Controller {
         changeDifficulty.setOnMouseClicked((action) -> bombNumber.setText(numberInput.getText()));
 
 
+
+
     }
 
+
+    private void configureMenuPanel(Controller controller) {
+        start.setOnMouseClicked((action) ->
+        {
+            gamePane.setDisable(false);
+            start.setDisable(true);
+            stop.setDisable(false);
+            changeNickname.setDisable(true);
+            nickInput.setDisable(true);
+            numberInput.setDisable(true);
+            changeDifficulty.setDisable(true);
+            console.setText("Kezdjük! :) ");
+
+        });
+
+
+    }
 }

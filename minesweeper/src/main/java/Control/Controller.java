@@ -37,7 +37,7 @@ public class Controller {
     @FXML
     private Button stop;
     @FXML
-    private Pane gamePane;
+    private GridPane GameGridPane;
 
     public void start(Stage stage) {
         this.stage = stage;
@@ -59,27 +59,14 @@ public class Controller {
         exit.setOnMouseClicked((action) -> stage.close());
 
         changeDifficulty.setOnMouseClicked((action) -> bombNumber.setText(numberInput.getText()));
+        start.setOnMouseClicked((action ) -> startGame());
 
 
 
 
     }
-
-
-    private void configureMenuPanel(Controller controller) {
-        start.setOnMouseClicked((action) ->
-        {
-            gamePane.setDisable(false);
-            start.setDisable(true);
-            stop.setDisable(false);
-            changeNickname.setDisable(true);
-            nickInput.setDisable(true);
-            numberInput.setDisable(true);
-            changeDifficulty.setDisable(true);
-            console.setText("Kezdjük! :) ");
-
-        });
-
-
+    private void startGame (){
+         GameGridConfig grid = new GameGridConfig(GameGridPane,Integer.valueOf(bombNumber.getText()));
+         GameGridPane = grid.getGrid();
     }
 }

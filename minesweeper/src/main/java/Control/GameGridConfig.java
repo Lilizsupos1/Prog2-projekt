@@ -1,16 +1,35 @@
 package Control;
 
+import Exeption.ExceptionClass;
 import javafx.scene.layout.GridPane;
 
-import java.awt.*;
+
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.GridPane;
+import javafx.scene.input.MouseButton;
+import javafx.scene.layout.GridPane;
+
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.List;
+import java.awt.Dimension;
 import java.util.Random;
 
 import Button.ButtonFactory;
 import Button.BombType;
 import Button.InGameButton;
+import Button.NumberClass;
 
 public class GameGridConfig {
+
+    private  Dimension size;
+    private  ButtonFactory buttonFactory;
+    private  Integer numberOfBombs;
+
+    private static InGameButton[][] buttonMatrix;
 
     private GridPane grid;
     private Integer bombCount;
@@ -38,11 +57,13 @@ public class GameGridConfig {
                     button = ButtonFactory.getInstance().getButton(BombType.BOMB);
                 }else{
                     button = ButtonFactory.getInstance().getButton(BombType.NUMBER);
+
                 }
                 button.getButton().setOnMouseClicked((action) -> {
                     button.execute();
                 });
                 grid.add(button.getButton(),i,j);
+
             }
         }
     }
@@ -65,6 +86,22 @@ public class GameGridConfig {
 
         }
         return tempBombs;
+    }
+    public static InGameButton[][] getButtonMatrix() {
+        return buttonMatrix;
+    }
+
+
+
+    private Integer getRandomNumberInRange(Integer range)
+    {
+        int number;
+        Random rand = new Random();
+        do {
+            number = rand.nextInt(range);
+        }while(number % size.height != 0);
+
+        return number;
     }
 
 }

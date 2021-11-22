@@ -4,7 +4,7 @@ import javafx.scene.control.Button;
 
 public class ButtonFactory {
     private static final ButtonFactory instance = new ButtonFactory();
-    public InGameButton getButton(BombType type){
+    public static InGameButton getButton(BombType type){
         InGameButton temp = null;
         switch (type) {
             case BOMB -> {temp = new BombClass(); break;}

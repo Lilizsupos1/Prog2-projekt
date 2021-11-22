@@ -64,6 +64,7 @@ public class Controller {
 
 
 
+
     }
     private void startGame (){
          GameGridConfig grid = new GameGridConfig(GameGridPane,Integer.valueOf(bombNumber.getText()));

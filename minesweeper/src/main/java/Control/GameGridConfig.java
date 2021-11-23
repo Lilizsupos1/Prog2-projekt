@@ -1,29 +1,25 @@
 package Control;
 
+import Button.*;
 import Exeption.ExceptionClass;
 import javafx.scene.layout.GridPane;
 
 
+import javafx.scene.input.MouseButton;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.GridPane;
-import javafx.scene.input.MouseButton;
-import javafx.scene.layout.GridPane;
+
+
 
 import java.awt.Point;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.Dimension;
-import java.util.Random;
 
-import Button.ButtonFactory;
-import Button.BombType;
-import Button.InGameButton;
-import Button.NumberClass;
+import Button.BombClass;
 
 public class GameGridConfig {
+
+
 
     private  Dimension size;
     private  ButtonFactory buttonFactory;
@@ -34,6 +30,7 @@ public class GameGridConfig {
     private GridPane grid;
     private Integer bombCount;
     private ArrayList<Point> bombs;
+
     public GameGridConfig(GridPane pane,Integer num){
         grid = pane;
         bombCount = num;
@@ -43,30 +40,67 @@ public class GameGridConfig {
         return grid;
     }
     private void config(){
+        grid.getChildren().clear();
 
         int row = grid.getRowCount();
         int column = grid.getColumnCount();
+        buttonMatrix = new InGameButton[row][column];
         grid.setBorder(null);
         bombs = getBombs();
-        for (int  i=0; i<row ; i++){
-            for (int j =0; j<column; j++){
-                Point temp = new Point(i,j);
-                InGameButton button;
-                if(bombs.contains(temp))
-                {
-                    button = ButtonFactory.getInstance().getButton(BombType.BOMB);
-                }else{
-                    button = ButtonFactory.getInstance().getButton(BombType.NUMBER);
+        bombs.forEach(p -> {
+            InGameButton button = ButtonFactory.getInstance().getButton(BombType.BOMB);
+            InGameButton finalButton = button;
 
+            button.getButton().setOnMouseClicked(event ->
+            {
+                if(event.getButton().equals(MouseButton.PRIMARY)){
+
+                    finalButton.execute();
+
+                }else{
+                    finalButton.onLeftClickEvent();
                 }
-                button.getButton().setOnMouseClicked((action) -> {
-                    button.execute();
+            });
+            getButtonMatrix()[p.x][p.y] = button;
+
+            grid.add(button.getButton(),p.x,p.y);
+        });
+
+        Integer buttonNumber = 0;
+        for (int  i=0; i< buttonMatrix.length ; i++){
+            for (int j =0; j< buttonMatrix[i].length; j++){
+                Point temp = new Point(i,j);
+                InGameButton button = new EmptyClass();
+                if(buttonMatrix[i][j] == null)
+                {
+                    try {
+                        button = getButton(new Point(i,j),bombs);
+                    } catch (ExceptionClass e) {
+                        //Sad
+                        e.printStackTrace();
+                    }
+                }
+                InGameButton finalButton = button;
+                button.getButton().setOnMouseClicked(event ->
+                {
+                if(event.getButton().equals(MouseButton.PRIMARY)){
+                        finalButton.execute();
+                    }else{
+                    finalButton.onLeftClickEvent();
+                }
+
                 });
+                button.setFocusTraversable(false);
+                buttonNumber++;
+                GameGridConfig.getButtonMatrix()[i][j] = button;
                 grid.add(button.getButton(),i,j);
+                RevealButton.setBombNumber(bombCount);
+                RevealButton.setButtonNumber(buttonNumber);
 
             }
         }
     }
+
     private ArrayList<Point> getBombs()
     {
         ArrayList<Point> tempBombs = new ArrayList<>();
@@ -75,8 +109,8 @@ public class GameGridConfig {
         Point temp;
         for(int i = 0;i<bombCount;i++)
         {
-            tempi = random.nextInt(12) - 1;
-            tempj = random.nextInt(12) - 1;
+            tempi = random.nextInt(12);
+            tempj = random.nextInt(12);
             temp = new Point(tempi,tempj);
             if(tempBombs.contains(temp)){
                 i--;
@@ -90,18 +124,31 @@ public class GameGridConfig {
     public static InGameButton[][] getButtonMatrix() {
         return buttonMatrix;
     }
+    private InGameButton getButton(Point point, List<Point> bombList) throws ExceptionClass {
+        int counter = 0;
+        Point temp;
+        for(int i=-1;i<2;i++)
+        {
+            for(int j = -1; j<2;j++)
+            {
+                temp = new Point(point.x+i, point.y+j);
+                Point finalTemp = temp;
 
-
-
-    private Integer getRandomNumberInRange(Integer range)
-    {
-        int number;
-        Random rand = new Random();
-        do {
-            number = rand.nextInt(range);
-        }while(number % size.height != 0);
-
-        return number;
+                if(bombList.stream().anyMatch(p -> p.equals(finalTemp)))
+                {
+                    counter++;
+                }
+            }
+        }
+        if(counter == 0)
+        {
+            return ButtonFactory.getInstance().getButton(BombType.EMPTY);
+        }else
+        {
+            NumberClass button = (NumberClass) ButtonFactory.getInstance().getButton(BombType.NUMBER);
+            button.changeScore(counter);
+            return button;
+        }
     }
 
 }

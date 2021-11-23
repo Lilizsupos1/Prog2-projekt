@@ -28,6 +28,8 @@ public class GameWindow extends Application {
         stage.setResizable(false);
 
         controller.start(stage);
+        controller.setStage(stage);
+
 
 
         }

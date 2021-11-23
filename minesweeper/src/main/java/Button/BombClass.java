@@ -1,5 +1,6 @@
 package Button;
 
+import Control.RevealButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import java.nio.charset.StandardCharsets;
@@ -22,11 +23,14 @@ public class BombClass extends InGameButton{
             button.setGraphic(imageView);
             button.setDisable(true);
             button.setOpacity(1);
+            RevealButton.lose();
 
 
+            //TODO: Game over
 
         }
     }
+
 
 
 }

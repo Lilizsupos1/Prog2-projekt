@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 public class NumberClass extends InGameButton{
 
-    private Integer score = 0;
+    private Integer score;
     private String pathToNumbers = "Images/";
 
     @Override

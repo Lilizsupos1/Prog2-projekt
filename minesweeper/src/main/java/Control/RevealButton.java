@@ -18,6 +18,7 @@ public class RevealButton {
     public static void incrementFlagNumber()
     {
         flagNumber++;
+        checkIfWin();
 
     }
 
@@ -59,8 +60,17 @@ public class RevealButton {
 
             restartFlagNumber();
             restartReveledCounter();
+            controller.winState(bombNumber);
+
 
         }
+    }
+    public static void lose()
+    {
+
+        restartFlagNumber();
+        restartReveledCounter();
+        controller.restartState();
     }
 
 }

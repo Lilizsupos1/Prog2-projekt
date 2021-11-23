@@ -39,15 +39,20 @@ public class Controller {
     @FXML
     private GridPane GameGridPane;
 
+
+
     public void start(Stage stage) {
         this.stage = stage;
+
         config();
         nickName.setText("Lilla");
         bombNumber.setText("10");
         this.stage.show();
+        start();
     }
 
     private void config() {
+
         changeNickname.setOnMouseClicked((action) ->
         {
             if (nickInput.getText().equals("")) {
@@ -61,13 +66,47 @@ public class Controller {
         changeDifficulty.setOnMouseClicked((action) -> bombNumber.setText(numberInput.getText()));
         start.setOnMouseClicked((action ) -> startGame());
 
-
-
-
+        stop.setOnMouseClicked(action ->
+        {
+            restartState();
+            console.setText("Le stoppoltad");
+        });
 
     }
+
+    public void restartState() {
+        GameGridPane.getChildren().clear();
+        start.setDisable(false);
+        changeNickname.setDisable(false);
+        changeDifficulty.setDisable(false);
+        GameGridPane.setDisable(false);
+        nickInput.setDisable(false);
+        numberInput.setDisable(false);
+
+        //endTimer();
+        stop.setDisable(false);
+    }
+
     private void startGame (){
          GameGridConfig grid = new GameGridConfig(GameGridPane,Integer.valueOf(bombNumber.getText()));
          GameGridPane = grid.getGrid();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void winState(Integer bombNumber)
+    {
+        //endTimer();
+        //Long time = timer.getDeltaTime() / 1000;
+        console.setText("Gratlálok! :) ");
+        restartState();
+    }
+
+    public void start()
+    {
+        RevealButton.setController(this);
+        stage.show();
     }
 }

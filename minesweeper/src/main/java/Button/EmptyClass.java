@@ -2,7 +2,9 @@ package Button;
 
 import Control.GameGridConfig;
 import Control.RevealButton;
+import javafx.scene.layout.Background;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class EmptyClass extends InGameButton{
@@ -14,6 +16,7 @@ public class EmptyClass extends InGameButton{
             button.setGraphic(null);
             InGameButton[][] buttonMatrix =  GameGridConfig.getButtonMatrix();
             button.setDisable(true);
+            button.setOpacity(0.5);
             Integer[] objIndex = new Integer[]{0,0};
 
             for(int i = 0; i < buttonMatrix.length -1;i++)

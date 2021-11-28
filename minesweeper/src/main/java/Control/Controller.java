@@ -1,18 +1,14 @@
 package Control;
 
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.awt.*;
-
 public class Controller {
+
 
     private Stage stage;
 
@@ -64,7 +60,11 @@ public class Controller {
         exit.setOnMouseClicked((action) -> stage.close());
 
         changeDifficulty.setOnMouseClicked((action) -> bombNumber.setText(numberInput.getText()));
-        start.setOnMouseClicked((action ) -> startGame());
+        start.setOnMouseClicked((action ) -> {
+                startGame();
+        console.setText("Új játék");
+        });
+
 
         stop.setOnMouseClicked(action ->
         {
@@ -83,9 +83,11 @@ public class Controller {
         nickInput.setDisable(false);
         numberInput.setDisable(false);
 
+
         //endTimer();
         stop.setDisable(false);
     }
+
 
     private void startGame (){
          GameGridConfig grid = new GameGridConfig(GameGridPane,Integer.valueOf(bombNumber.getText()));
@@ -96,7 +98,7 @@ public class Controller {
         this.stage = stage;
     }
 
-    public void winState(Integer bombNumber)
+    public void winState(Integer bombCount)
     {
         //endTimer();
         //Long time = timer.getDeltaTime() / 1000;
@@ -104,9 +106,13 @@ public class Controller {
         restartState();
     }
 
+
     public void start()
     {
         RevealButton.setController(this);
         stage.show();
     }
+
+
 }
+

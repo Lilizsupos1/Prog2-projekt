@@ -16,7 +16,7 @@ public class EmptyClass extends InGameButton{
             button.setGraphic(null);
             InGameButton[][] buttonMatrix =  GameGridConfig.getButtonMatrix();
             button.setDisable(true);
-            button.setOpacity(0.5);
+            button.setOpacity(0.7);
             Integer[] objIndex = new Integer[]{0,0};
             button.setStyle("-fx-background-color: #A9A9A9; ");
 

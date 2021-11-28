@@ -3,6 +3,8 @@ package Button;
 import Control.RevealButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import javax.sound.sampled.Control;
 import java.nio.charset.StandardCharsets;
 import java.net.URLDecoder;
 
@@ -26,7 +28,8 @@ public class BombClass extends InGameButton{
             RevealButton.lose();
 
 
-            //TODO: Game over
+
+
 
         }
     }

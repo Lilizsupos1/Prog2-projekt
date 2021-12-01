@@ -1,7 +1,5 @@
 package Control;
 
-import javax.sound.sampled.Control;
-
 public class RevealButton {
     private static Controller controller;
     private static Integer revealedButtonNumber = 0;
@@ -62,7 +60,7 @@ public class RevealButton {
 
             restartFlagNumber();
             restartReveledCounter();
-            controller.winState(bombNumber);
+            controller.winState();
 
 
         }

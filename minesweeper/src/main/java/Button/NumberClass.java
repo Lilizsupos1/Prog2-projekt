@@ -1,6 +1,5 @@
 package Button;
 
-import Control.GameGridConfig;
 import Control.RevealButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -1,10 +1,7 @@
 package Main;
 
 import Window.GameWindow;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
+
 
 public class Main {
 

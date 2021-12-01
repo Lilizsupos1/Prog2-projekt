@@ -98,10 +98,8 @@ public class Controller {
         this.stage = stage;
     }
 
-    public void winState(Integer bombCount)
+    public void winState()
     {
-        //endTimer();
-        //Long time = timer.getDeltaTime() / 1000;
         console.setText("Gratlálok! :) ");
         restartState();
     }

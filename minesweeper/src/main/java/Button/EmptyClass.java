@@ -2,9 +2,7 @@ package Button;
 
 import Control.GameGridConfig;
 import Control.RevealButton;
-import javafx.scene.layout.Background;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 public class EmptyClass extends InGameButton{

@@ -13,23 +13,18 @@ import java.util.Random;
 
 
 import java.awt.Point;
-import java.awt.Dimension;
 
-import Button.BombClass;
 
 public class GameGridConfig {
 
 
 
-    private  Dimension size;
-    private  ButtonFactory buttonFactory;
-    private  Integer numberOfBombs;
+
 
     private static InGameButton[][] buttonMatrix;
 
-    private GridPane grid;
-    private Integer bombCount;
-    private ArrayList<Point> bombs;
+    private final GridPane grid;
+    private final Integer bombCount;
 
     public GameGridConfig(GridPane pane,Integer num){
         grid = pane;
@@ -46,19 +41,18 @@ public class GameGridConfig {
         int column = grid.getColumnCount();
         buttonMatrix = new InGameButton[row][column];
         grid.setBorder(null);
-        bombs = getBombs();
+        ArrayList<Point> bombs = getBombs();
         bombs.forEach(p -> {
             InGameButton button = ButtonFactory.getInstance().getButton(BombType.BOMB);
-            InGameButton finalButton = button;
 
             button.getButton().setOnMouseClicked(event ->
             {
                 if(event.getButton().equals(MouseButton.PRIMARY)){
 
-                    finalButton.execute();
+                    button.execute();
 
                 }else{
-                    finalButton.onLeftClickEvent();
+                    button.onLeftClickEvent();
                 }
             });
             getButtonMatrix()[p.x][p.y] = button;
@@ -69,12 +63,12 @@ public class GameGridConfig {
         Integer buttonNumber = 0;
         for (int  i=0; i< buttonMatrix.length ; i++){
             for (int j =0; j< buttonMatrix[i].length; j++){
-                Point temp = new Point(i,j);
+                //Point temp = new Point(i,j);
                 InGameButton button = new EmptyClass();
                 if(buttonMatrix[i][j] == null)
                 {
                     try {
-                        button = getButton(new Point(i,j),bombs);
+                        button = getButton(new Point(i,j), bombs);
                     } catch (ExceptionClass e) {
                         //Sad
                         e.printStackTrace();
